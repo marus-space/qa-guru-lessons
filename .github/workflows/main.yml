@@ -1,0 +1,25 @@
+# Название пайплайна
+name: QA Guru UI/API Playwright Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  # Ручной запуск
+  workflow_dispatch:
+
+jobs:
+  qa-guru:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.0
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v6.4.0
+      - name: Install packages
+        run: npm ci
+      - name: Install browsers
+        run: npx playwright install --with-deps
+      - name: Run tests
+        run: npm t
