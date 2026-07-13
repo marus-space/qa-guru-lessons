@@ -1,8 +1,5 @@
 import { test } from '@playwright/test';
 
-// FIXME: Вынести
-const url = 'https://apichallenges.eviltester.com';
-
 export class ChallengesService {
   constructor(request) {
     this.request = request;
@@ -10,7 +7,7 @@ export class ChallengesService {
 
   async get(token) {
     return test.step('GET /challenges', async () => {
-      const response = await this.request.get(`${url}/challenges`, {
+      const response = await this.request.get(`${process.env.CHALLENGER_API_URL}/challenges`, {
         headers: {
           'x-challenger': token,
         },

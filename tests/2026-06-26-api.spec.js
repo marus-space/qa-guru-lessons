@@ -1,13 +1,11 @@
 import { test, expect } from '@playwright/test';
 
-const apiUrl = 'https://apichallenges.eviltester.com';
-
 test('API', async ({ request }) => {
-  let response = await request.post(`${apiUrl}/challenger`);
+  let response = await request.post(`${process.env.CHALLENGER_API_URL}/challenger`);
 
   const headers = await response.headers();
 
-  response = await request.get(`${apiUrl}/challenges`, {
+  response = await request.get(`${process.env.CHALLENGER_API_URL}/challenges`, {
     headers: {
       'x-challenger': headers['x-challenger'],
     },
@@ -17,7 +15,7 @@ test('API', async ({ request }) => {
 
   expect(body.challenges).toHaveLength(59);
 
-  response = await request.post(`${apiUrl}/todos`, {
+  response = await request.post(`${process.env.CHALLENGER_API_URL}/todos`, {
     headers: {
       'x-challenger': headers['x-challenger'],
     },
@@ -35,5 +33,5 @@ test('API', async ({ request }) => {
   expect(body.doneStatus).toEqual(false);
   expect(body.description).toEqual('Описание задачи');
 
-  console.log(`${apiUrl}${headers.location}`);
+  console.log(`${process.env.CHALLENGER_API_URL}${headers.location}`);
 });

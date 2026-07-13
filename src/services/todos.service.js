@@ -1,8 +1,5 @@
 import { test } from '@playwright/test';
 
-// FIXME: Вынести
-const url = 'https://apichallenges.eviltester.com';
-
 export class TodosService {
   constructor(request) {
     this.request = request;
@@ -10,7 +7,7 @@ export class TodosService {
 
   async post({ token, data }) {
     return test.step('POST /todos', async () => {
-      const response = await this.request.post(`${url}/todos`, {
+      const response = await this.request.post(`${process.env.CHALLENGER_API_URL}/todos`, {
         headers: {
           'x-challenger': token,
         },

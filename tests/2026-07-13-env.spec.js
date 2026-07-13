@@ -4,8 +4,6 @@ import { App } from '../src/pages';
 
 test('Пользователь может зарегистрироваться, используя email и пароль', async ({ page }) => {
   const user = new UserBuilder().withEmail().withUsername().withPassword().build();
-  console.log('Переменные окружения');
-  console.log(process.env);
   
   const app = new App({ page });
   
