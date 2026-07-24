@@ -2,26 +2,36 @@ pipeline {
   agent any
 
   stages {
-    stage('Build') {
+    stage('Build and Test') {
       steps {
         nodejs('NodeJS 24.18.0') {
           sh 'npm ci'
           sh 'npx playwright install --with-deps'
-          sh 'npm t'
+
+          withAllureUpload(
+            credentialsId: 'allure-testops-api-token',
+            name: '${JOB_NAME} - #${BUILD_NUMBER}',
+            projectId: '5283',
+            results: [[path: 'allure-results']],
+            serverId: 'Allure TestOps',
+            tags: ''
+          ) {
+            sh 'npm test'
+          }
         }
       }
     }
+  }
 
-    stage('Allure') {
-      steps {
-        allure(
-          includeProperties: false,
-          jdk: '',
-          properties: [],
-          reportBuildPolicy: 'ALWAYS',
-          results: [[path: 'allure-results']]
-        )
-      }
+  post {
+    always {
+      allure(
+        includeProperties: false,
+        jdk: '',
+        properties: [],
+        reportBuildPolicy: 'ALWAYS',
+        results: [[path: 'allure-results']]
+      )
     }
   }
 }
