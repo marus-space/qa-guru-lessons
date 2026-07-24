@@ -13,7 +13,7 @@ test('API', async ({ request }) => {
 
   let body = await response.json();
 
-  expect(body.challenges).toHaveLength(59);
+  expect(body.challenges).toHaveLength(61);
 
   response = await request.post(`${process.env.CHALLENGER_API_URL}/todos`, {
     headers: {

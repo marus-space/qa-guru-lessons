@@ -10,7 +10,7 @@ test('API', async ({ api }) => {
 
   ({ body } = await api.challenges.get(token));
 
-  expect(body.challenges).toHaveLength(59);
+  expect(body.challenges).toHaveLength(61);
 
   // TODO: Вынести в билдер
   const todo = {
