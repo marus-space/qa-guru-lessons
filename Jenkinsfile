@@ -1,5 +1,7 @@
 pipeline {
-  agent any
+  agent {
+    label 'java-jdk21'
+  }
 
   stages {
     stage('Build and Test') {
