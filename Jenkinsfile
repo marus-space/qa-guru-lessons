@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        nodejs('NodeJS24.18.0') {
+        nodejs('NodeJS 24.18.0') {
           sh 'npm ci'
           sh 'npx playwright install --with-deps'
           sh 'npm t'
